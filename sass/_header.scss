@@ -8,10 +8,18 @@
   padding: 4rem 8rem;
 
   display: grid;
-  grid-template-rows: 1fr min-content 6rem 1fr; //1st row occupies all empty space, other elements size automatically
-  grid-template-columns: max-content;
+  grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr; //1st row occupies all empty space, other elements size automatically
+  grid-template-columns: minmax(min-content, max-content); //for adaptivity
   row-gap: 1.5rem;
   justify-content: center;
+
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: 1 / -1;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 5rem;
+  }
 
   &__logo {
     height: 3rem;
@@ -46,9 +54,11 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 3rem;
     justify-items: center;
+    align-items: center;
 
     img {
-      height: 2.5rem;
+      max-height: 2.5rem; //max-height instead of height for building adaptivity
+      max-width: 100%; //for building adaptivity
       filter: brightness(70%);
     }
   }
